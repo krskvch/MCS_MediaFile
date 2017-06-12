@@ -95,6 +95,7 @@ config.py
 __pycache__
 .idea
 .pycharmcache
+walk.py
 
 # Rope project settings
 .ropeproject
