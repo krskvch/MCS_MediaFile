@@ -74,16 +74,5 @@ def file_listing(message):
             messageOut = messageOut + key + ' - ' + outDict[key] + '\n'
         bot.send_message(message.chat.id, messageOut)
 
-
-
-    # if message == 'Left':
-    #     message = "Turn left?"
-    # bot.send_message(message.chat.id, message.text)
-
-    # markup = types.ReplyKeyboardMarkup()
-    # markup.row('Left', 'Right')
-    # markup.row('c', 'd', 'e')
-    # bot.send_message(message.chat.id, "Choose your destination:", reply_markup=markup)
-
 if __name__ == '__main__':
     bot.polling(none_stop=True)
