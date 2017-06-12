@@ -19,18 +19,17 @@ def file_listing(message):
             if fname != '.DS_Store':
                 files.append(fname)
     filesDict = dict(enumerate(files))
-    markup = types.ReplyKeyboardMarkup()
-    markup.row('START')
 
-    if messageStart == 'START':
+    if messageStart == '/start':
         for key in filesDict:
             messageOut = messageOut + str(key) + ': ' + filesDict[key] + '\n'
         bot.send_message(message.chat.id, "Выберите файл: " + '\n' + messageOut)
 
     else:
-        messageOut = message.text
-        bot.send_message(message.chat.id, "Сканирую файл: " + filesDict[int(messageOut)])
-        MI.Open(rootDir + '/' + filesDict[int(messageOut)])
+        messageIn = message.text
+        messageOut = str()
+        bot.send_message(message.chat.id, "Сканирую файл: " + filesDict[int(messageIn)])
+        MI.Open(rootDir + '/' + filesDict[int(messageIn)])
 
         class file:
             MI.Option_Static("Inform", "General;%FileName%.%FileExtension%")
@@ -72,7 +71,7 @@ def file_listing(message):
 
 
         for key in outDict:
-            messageOut = messageOut + key + '-' + outDict[key] + '\n'
+            messageOut = messageOut + key + ' - ' + outDict[key] + '\n'
         bot.send_message(message.chat.id, messageOut)
 
 
