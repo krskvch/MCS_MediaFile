@@ -7,8 +7,8 @@
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 #
 #  Public DLL interface implementation
-#  Wrapper for MediaInfo Library
-#  Please see MediaInfo.h for help
+#  Wrapper for MediaCore Library
+#  Please see MediaCore.h for help
 #
 # Converted to python module by Petr Kaderabek
 # Modifications by Jerome Martinez
@@ -65,7 +65,7 @@ class FileOptions:
 class MediaInfo:
 
     #MEDIAINFO_EXP void*         __stdcall MediaInfo_New (); /*you must ALWAYS call MediaInfo_Delete(Handle) in order to free memory*/
-    #/** @brief A 'new' MediaInfo interface (with a quick init of useful options : "**VERSION**;**APP_NAME**;**APP_VERSION**", but without debug information, use it only if you know what you do), return a Handle, don't forget to delete it after using it*/
+    #/** @brief A 'new' MediaCore interface (with a quick init of useful options : "**VERSION**;**APP_NAME**;**APP_VERSION**", but without debug information, use it only if you know what you do), return a Handle, don't forget to delete it after using it*/
     MediaInfo_New = MediaInfoDLL_Handler.MediaInfo_New
     MediaInfo_New.argtypes = []
     MediaInfo_New.restype  = c_void_p
@@ -78,13 +78,13 @@ class MediaInfo:
     MediaInfoA_New_Quick.argtypes = [c_char_p, c_char_p]
     MediaInfoA_New_Quick.restype  = c_void_p
 
-    #/** @brief Delete a MediaInfo interface*/
+    #/** @brief Delete a MediaCore interface*/
     #MEDIAINFO_EXP void       __stdcall MediaInfo_Delete (void* Handle);
     MediaInfo_Delete = MediaInfoDLL_Handler.MediaInfo_Delete
     MediaInfo_Delete.argtypes = [c_void_p]
     MediaInfo_Delete.restype  = None
 
-    #/** @brief Wrapper for MediaInfoLib::MediaInfo::Open (with a filename)*/
+    #/** @brief Wrapper for MediaInfoLib::MediaCore::Open (with a filename)*/
     #MEDIAINFO_EXP size_t       __stdcall MediaInfo_Open (void* Handle, const wchar_t* File);
     MediaInfo_Open = MediaInfoDLL_Handler.MediaInfo_Open
     MediaInfo_Open.argtypes = [c_void_p, c_wchar_p]
@@ -93,49 +93,49 @@ class MediaInfo:
     MediaInfoA_Open.argtypes = [c_void_p, c_char_p]
     MediaInfoA_Open.restype = c_size_t
 
-    #/** @brief Wrapper for MediaInfoLib::MediaInfo::Open (with a buffer) */
+    #/** @brief Wrapper for MediaInfoLib::MediaCore::Open (with a buffer) */
     #MEDIAINFO_EXP size_t       __stdcall MediaInfo_Open_Buffer (void* Handle, const unsigned char* Begin, size_t Begin_Size, const unsigned char* End, size_t End_Size); /*return Handle*/
     MediaInfo_Open_Buffer = MediaInfoDLL_Handler.MediaInfo_Open_Buffer
     MediaInfo_Open_Buffer.argtypes = [c_void_p, c_void_p, c_size_t, c_void_p, c_size_t]
     MediaInfo_Open_Buffer.restype = c_size_t
 
-    #/** @brief Wrapper for MediaInfoLib::MediaInfo::Open (with a buffer, Init) */
+    #/** @brief Wrapper for MediaInfoLib::MediaCore::Open (with a buffer, Init) */
     #MEDIAINFO_EXP size_t            __stdcall MediaInfo_Open_Buffer_Init (void* Handle, MediaInfo_int64u File_Size, MediaInfo_int64u File_Offset);
     MediaInfo_Open_Buffer_Init = MediaInfoDLL_Handler.MediaInfo_Open_Buffer_Init
     MediaInfo_Open_Buffer_Init.argtypes = [c_void_p, c_uint64, c_uint64]
     MediaInfo_Open_Buffer_Init.restype = c_size_t
 
-    #/** @brief Wrapper for MediaInfoLib::MediaInfo::Open (with a buffer, Continue) */
+    #/** @brief Wrapper for MediaInfoLib::MediaCore::Open (with a buffer, Continue) */
     #MEDIAINFO_EXP size_t            __stdcall MediaInfo_Open_Buffer_Continue (void* Handle, MediaInfo_int8u* Buffer, size_t Buffer_Size);
     MediaInfo_Open_Buffer_Continue = MediaInfoDLL_Handler.MediaInfo_Open_Buffer_Continue
     MediaInfo_Open_Buffer_Continue.argtypes = [c_void_p, c_char_p, c_size_t]
     MediaInfo_Open_Buffer_Continue.restype = c_size_t
 
-    #/** @brief Wrapper for MediaInfoLib::MediaInfo::Open (with a buffer, Continue_GoTo_Get) */
+    #/** @brief Wrapper for MediaInfoLib::MediaCore::Open (with a buffer, Continue_GoTo_Get) */
     #MEDIAINFO_EXP MediaInfo_int64u  __stdcall MediaInfo_Open_Buffer_Continue_GoTo_Get (void* Handle);
     MediaInfo_Open_Buffer_Continue_GoTo_Get = MediaInfoDLL_Handler.MediaInfo_Open_Buffer_Continue_GoTo_Get
     MediaInfo_Open_Buffer_Continue_GoTo_Get.argtypes = [c_void_p]
     MediaInfo_Open_Buffer_Continue_GoTo_Get.restype = c_uint64
 
-    #/** @brief Wrapper for MediaInfoLib::MediaInfo::Open (with a buffer, Finalize) */
+    #/** @brief Wrapper for MediaInfoLib::MediaCore::Open (with a buffer, Finalize) */
     #MEDIAINFO_EXP size_t            __stdcall MediaInfo_Open_Buffer_Finalize (void* Handle);
     MediaInfo_Open_Buffer_Finalize = MediaInfoDLL_Handler.MediaInfo_Open_Buffer_Finalize
     MediaInfo_Open_Buffer_Finalize.argtypes = [c_void_p]
     MediaInfo_Open_Buffer_Finalize.restype = c_size_t
 
-    #/** @brief Wrapper for MediaInfoLib::MediaInfo::Save */
+    #/** @brief Wrapper for MediaInfoLib::MediaCore::Save */
     #MEDIAINFO_EXP size_t       __stdcall MediaInfo_Save (void* Handle);
     MediaInfo_Save = MediaInfoDLL_Handler.MediaInfo_Save
     MediaInfo_Save.argtypes = [c_void_p]
     MediaInfo_Save.restype = c_size_t
 
-    #/** @brief Wrapper for MediaInfoLib::MediaInfo::Close */
+    #/** @brief Wrapper for MediaInfoLib::MediaCore::Close */
     #MEDIAINFO_EXP void       __stdcall MediaInfo_Close (void* Handle);
     MediaInfo_Close = MediaInfoDLL_Handler.MediaInfo_Close
     MediaInfo_Close.argtypes = [c_void_p]
     MediaInfo_Close.restype = None
 
-    #/** @brief Wrapper for MediaInfoLib::MediaInfo::Inform */
+    #/** @brief Wrapper for MediaInfoLib::MediaCore::Inform */
     #MEDIAINFO_EXP const wchar_t*    __stdcall MediaInfo_Inform (void* Handle, size_t Reserved); /*Default : Reserved=0*/
     MediaInfo_Inform = MediaInfoDLL_Handler.MediaInfo_Inform
     MediaInfo_Inform.argtypes = [c_void_p, c_size_t]
@@ -144,7 +144,7 @@ class MediaInfo:
     MediaInfoA_Inform.argtypes = [c_void_p, c_size_t]
     MediaInfoA_Inform.restype = c_char_p
 
-    #/** @brief Wrapper for MediaInfoLib::MediaInfo::Get */
+    #/** @brief Wrapper for MediaInfoLib::MediaCore::Get */
     #MEDIAINFO_EXP const wchar_t*    __stdcall MediaInfo_GetI (void* Handle, MediaInfo_stream_C StreamKind, size_t StreamNumber, size_t Parameter, MediaInfo_info_C InfoKind); /*Default : InfoKind=Info_Text*/
     MediaInfo_GetI = MediaInfoDLL_Handler.MediaInfo_GetI
     MediaInfo_GetI.argtypes = [c_void_p, c_size_t, c_size_t, c_size_t, c_size_t]
@@ -153,7 +153,7 @@ class MediaInfo:
     MediaInfoA_GetI.argtypes = [c_void_p, c_size_t, c_size_t, c_size_t, c_size_t]
     MediaInfoA_GetI.restype = c_char_p
 
-    #/** @brief Wrapper for MediaInfoLib::MediaInfo::Get */
+    #/** @brief Wrapper for MediaInfoLib::MediaCore::Get */
     #MEDIAINFO_EXP const wchar_t*    __stdcall MediaInfo_Get (void* Handle, MediaInfo_stream_C StreamKind, size_t StreamNumber, const wchar_t* Parameter, MediaInfo_info_C InfoKind, MediaInfo_info_C SearchKind); /*Default : InfoKind=Info_Text, SearchKind=Info_Name*/
     MediaInfo_Get = MediaInfoDLL_Handler.MediaInfo_Get
     MediaInfo_Get.argtypes = [c_void_p, c_size_t, c_size_t, c_wchar_p, c_size_t, c_size_t]
@@ -162,7 +162,7 @@ class MediaInfo:
     MediaInfoA_Get.argtypes = [c_void_p, c_size_t, c_size_t, c_wchar_p, c_size_t, c_size_t]
     MediaInfoA_Get.restype = c_char_p
 
-    #/** @brief Wrapper for MediaInfoLib::MediaInfo::Set */
+    #/** @brief Wrapper for MediaInfoLib::MediaCore::Set */
     #MEDIAINFO_EXP size_t       __stdcall MediaInfo_SetI (void* Handle, const wchar_t* ToSet, MediaInfo_stream_C StreamKind, size_t StreamNumber, size_t Parameter, const wchar_t* OldParameter);
     MediaInfo_SetI = MediaInfoDLL_Handler.MediaInfo_SetI
     MediaInfo_SetI.argtypes = [c_void_p, c_wchar_p, c_size_t, c_size_t, c_size_t, c_wchar_p]
@@ -171,7 +171,7 @@ class MediaInfo:
     MediaInfoA_SetI.argtypes = [c_void_p, c_char_p, c_size_t, c_size_t, c_size_t, c_wchar_p]
     MediaInfoA_SetI.restype = c_void_p
 
-    #/** @brief Wrapper for MediaInfoLib::MediaInfo::Set */
+    #/** @brief Wrapper for MediaInfoLib::MediaCore::Set */
     #MEDIAINFO_EXP size_t       __stdcall MediaInfo_Set (void* Handle, const wchar_t* ToSet, MediaInfo_stream_C StreamKind, size_t StreamNumber, const wchar_t* Parameter, const wchar_t* OldParameter);
     MediaInfo_Set = MediaInfoDLL_Handler.MediaInfo_Set
     MediaInfo_Set.argtypes = [c_void_p, c_wchar_p, c_size_t, c_size_t, c_wchar_p, c_wchar_p]
@@ -180,7 +180,7 @@ class MediaInfo:
     MediaInfoA_Set.argtypes = [c_void_p, c_char_p, c_size_t, c_size_t, c_wchar_p, c_wchar_p]
     MediaInfoA_Set.restype = c_size_t
 
-    #/** @brief Wrapper for MediaInfoLib::MediaInfo::Option */
+    #/** @brief Wrapper for MediaInfoLib::MediaCore::Option */
     #MEDIAINFO_EXP const wchar_t*    __stdcall MediaInfo_Option (void* Handle, const wchar_t* Option, const wchar_t* Value);
     MediaInfo_Option = MediaInfoDLL_Handler.MediaInfo_Option
     MediaInfo_Option.argtypes = [c_void_p, c_wchar_p, c_wchar_p]
@@ -189,13 +189,13 @@ class MediaInfo:
     MediaInfoA_Option.argtypes = [c_void_p, c_char_p, c_char_p]
     MediaInfoA_Option.restype = c_char_p
 
-    #/** @brief Wrapper for MediaInfoLib::MediaInfo::State_Get */
+    #/** @brief Wrapper for MediaInfoLib::MediaCore::State_Get */
     #MEDIAINFO_EXP size_t       __stdcall MediaInfo_State_Get (void* Handle);
     MediaInfo_State_Get = MediaInfoDLL_Handler.MediaInfo_State_Get
     MediaInfo_State_Get.argtypes = [c_void_p]
     MediaInfo_State_Get.restype = c_size_t
 
-    #/** @brief Wrapper for MediaInfoLib::MediaInfo::Count_Get */
+    #/** @brief Wrapper for MediaInfoLib::MediaCore::Count_Get */
     #MEDIAINFO_EXP size_t       __stdcall MediaInfo_Count_Get (void* Handle, MediaInfo_stream_C StreamKind, size_t StreamNumber); /*Default : StreamNumber=-1*/
     MediaInfo_Count_Get = MediaInfoDLL_Handler.MediaInfo_Count_Get
     MediaInfo_Count_Get.argtypes = [c_void_p, c_size_t, c_size_t]
